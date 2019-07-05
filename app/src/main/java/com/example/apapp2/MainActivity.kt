@@ -14,6 +14,9 @@ class MainActivity : AppCompatActivity() {
     companion object{
         lateinit var dbHandler: DBHandler
     }
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewManager: RecyclerView.LayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,10 +35,18 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("WrongConstant")
     private fun viewObjektovi(){
         val objektilista = dbHandler.getObjekti(this)
-        val adapter = IznajmAdapter(this, objektilista)
+        /*val adapter = IznajmAdapter(this, objektilista)
         val rv : RecyclerView = findViewById(R.id.rv)
         rv.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false) as RecyclerView.LayoutManager
-        rv.adapter = adapter
+        rv.adapter = adapter*/
+        viewManager = LinearLayoutManager(this)
+        viewAdapter = IznajmAdapter(this,objektilista)
+
+        recyclerView = findViewById<RecyclerView>(R.id.rv).apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+        }
     }
 
     override fun onResume(){

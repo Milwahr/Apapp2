@@ -41,7 +41,7 @@
             android:id="@+id/rez_select"
             app:layout_constraintStart_toEndOf="@+id/txtrez_naziv" android:layout_marginLeft="36dp"
             android:layout_marginStart="36dp" android:layout_marginTop="20dp"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" android:contentDescription="TODO"/>
     <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" app:srcCompat="@android:drawable/ic_menu_edit"

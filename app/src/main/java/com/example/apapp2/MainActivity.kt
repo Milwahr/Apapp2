@@ -35,18 +35,18 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("WrongConstant")
     private fun viewObjektovi(){
         val objektilista = dbHandler.getObjekti(this)
-        /*val adapter = IznajmAdapter(this, objektilista)
+        val adapter = IznajmAdapter(this, objektilista)
         val rv : RecyclerView = findViewById(R.id.rv)
         rv.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false) as RecyclerView.LayoutManager
-        rv.adapter = adapter*/
-        viewManager = LinearLayoutManager(this)
+        rv.adapter = adapter
+        /*viewManager = LinearLayoutManager(this)
         viewAdapter = IznajmAdapter(this,objektilista)
 
         recyclerView = findViewById<RecyclerView>(R.id.rv).apply {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
-        }
+        }*/
     }
 
     override fun onResume(){

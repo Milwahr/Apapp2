@@ -16,7 +16,7 @@ class AddObjekat : AppCompatActivity() {
                 Toast.makeText(this, "Unesite ime objekta!", Toast.LENGTH_SHORT).show()
                 txtNoviObjekt.requestFocus()
             }else{
-                val objekat = Izn_objekti()
+                val objekat = Iznobjekti()
                 objekat.izn_ime = txtNoviObjekt.text.toString()
 
                 MainActivity.dbHandler.addObjekat(this, objekat)

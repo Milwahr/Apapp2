@@ -29,24 +29,28 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            tools:layout_editor_absoluteY="148dp" tools:layout_editor_absoluteX="142dp" android:id="@+id/edit_ime_rez"
-            android:hint="Ime rezervacije"/>
+            android:id="@+id/edit_ime_rez"
+            android:hint="Ime rezervacije" app:layout_constraintTop_toBottomOf="@+id/obj_ime"
+            android:layout_marginEnd="56dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="56dp"
+            android:layout_marginTop="32dp"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="date"
             android:ems="10"
-            tools:layout_editor_absoluteX="142dp" android:id="@+id/datum_dol"
+            android:id="@+id/datum_dol"
             android:hint="Dolazak" android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@+id/edit_ime_rez"/>
+            app:layout_constraintTop_toBottomOf="@+id/edit_ime_rez" android:layout_marginEnd="56dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="56dp"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="date"
             android:ems="10"
-            tools:layout_editor_absoluteX="141dp" android:id="@+id/datum_odl"
-            android:hint="Odlazak" android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/datum_dol"/>
+            android:id="@+id/datum_odl"
+            android:hint="Odlazak" android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/datum_dol" android:layout_marginEnd="56dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="56dp"/>
     <TextView
             android:text="Datum Odlaska:"
             android:layout_width="wrap_content"

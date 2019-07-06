@@ -1,5 +1,6 @@
 package com.example.apapp2
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
@@ -38,6 +39,7 @@ class RezAdapter(mCtx: Context, val rezerv: ArrayList<Rezervacije>): RecyclerVie
         return rezerv.size
     }
 
+    @SuppressLint("InflateParams")
     override fun onBindViewHolder(holder: RezAdapter.ViewHolder, position: Int) {
         /*
         val iznajmljiv : Izn_objekti = iznajApp[position]

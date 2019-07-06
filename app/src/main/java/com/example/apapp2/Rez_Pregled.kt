@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_rez__pregled.*
 
-class Rez_Pregled : AppCompatActivity() {
+class RezPregled : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +22,7 @@ class Rez_Pregled : AppCompatActivity() {
         viewRezervacije()
 
         fab_add.setOnClickListener(){
-            val i = Intent(this, Add_Rez::class.java)
+            val i = Intent(this, AddRez::class.java)
             intent.putExtra("rezIme", rezIme)
             startActivity(i)
         }

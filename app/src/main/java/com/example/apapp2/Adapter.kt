@@ -1,5 +1,6 @@
 package com.example.apapp2
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
@@ -14,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.objekat_edit.view.*
 import kotlinx.android.synthetic.main.prikaz_izn.view.*
 
-class IznajmAdapter(mCtx: Context, val iznajApp: ArrayList<Izn_objekti>): RecyclerView.Adapter<IznajmAdapter.ViewHolder>(){
+class IznajmAdapter(mCtx: Context, val iznajApp: ArrayList<Iznobjekti>): RecyclerView.Adapter<IznajmAdapter.ViewHolder>(){
 
     val mCtx = mCtx
 
@@ -34,8 +35,9 @@ class IznajmAdapter(mCtx: Context, val iznajApp: ArrayList<Izn_objekti>): Recycl
         return iznajApp.size
     }
 
+    @SuppressLint("InflateParams")
     override fun onBindViewHolder(holder: IznajmAdapter.ViewHolder, position: Int) {
-        val iznajmljiv : Izn_objekti = iznajApp[position]
+        val iznajmljiv : Iznobjekti = iznajApp[position]
         holder.txtObjIme.text = iznajmljiv.izn_ime
 
         holder.btnDelete.setOnClickListener(){
@@ -90,7 +92,7 @@ class IznajmAdapter(mCtx: Context, val iznajApp: ArrayList<Izn_objekti>): Recycl
             val prenosi_ime = iznajmljiv.izn_ime
             val prenosi_id = iznajmljiv.izn_id
 
-            val intent = Intent(mCtx, Rez_Pregled::class.java)
+            val intent = Intent(mCtx, RezPregled::class.java)
             intent.putExtra("RezID", prenosi_id)
             intent.putExtra("rezIme", prenosi_ime)
             mCtx.startActivity(intent)

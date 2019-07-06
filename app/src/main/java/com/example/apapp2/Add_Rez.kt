@@ -6,7 +6,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_add__rez.*
 import kotlinx.android.synthetic.main.novi_prikaz_rez.*
 
-class Add_Rez : AppCompatActivity() {
+class AddRez : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

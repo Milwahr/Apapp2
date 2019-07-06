@@ -1,6 +1,6 @@
 package com.example.apapp2
 
-class Izn_objekti{
+class Iznobjekti{
     var izn_id: Int = 0
     var izn_ime: String = ""
 }

@@ -39,11 +39,11 @@ class DBHandler(context: Context, name: String?, factory: SQLiteDatabase.CursorF
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    fun getObjekti(mCtx: Context) : ArrayList<Izn_objekti>{
+    fun getObjekti(mCtx: Context) : ArrayList<Iznobjekti>{
         val qry = "SELECT * FROM $IZN_TABLE_NAME"
         val db = this.readableDatabase
         val cursor = db.rawQuery(qry, null)
-        val objektovi = ArrayList<Izn_objekti>()
+        val objektovi = ArrayList<Iznobjekti>()
 
         if (cursor.count == 0)
             Toast.makeText(mCtx, "Nema nicega", Toast.LENGTH_SHORT).show()
@@ -51,7 +51,7 @@ class DBHandler(context: Context, name: String?, factory: SQLiteDatabase.CursorF
             cursor.moveToFirst()
 
             while(!cursor.isAfterLast()){
-                val objekat = Izn_objekti()
+                val objekat = Iznobjekti()
                 objekat.izn_id = cursor.getInt(cursor.getColumnIndex(COLUMN_IZN_ID))
                 objekat.izn_ime = cursor.getString(cursor.getColumnIndex(COLUMN_IZN_IME))
                 objektovi.add(objekat)
@@ -92,7 +92,7 @@ class DBHandler(context: Context, name: String?, factory: SQLiteDatabase.CursorF
         return rezervacije
         }
 
-    fun addObjekat(mCtx: Context, objekat: Izn_objekti){
+    fun addObjekat(mCtx: Context, objekat: Iznobjekti){
         val values = ContentValues()
         values.put(COLUMN_IZN_IME, objekat.izn_ime)
 

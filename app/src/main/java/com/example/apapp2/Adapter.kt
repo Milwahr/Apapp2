@@ -94,7 +94,7 @@ class IznajmAdapter(mCtx: Context, val iznajApp: ArrayList<Iznobjekti>): Recycle
 
             val intent = Intent(mCtx, RezPregled::class.java)
             intent.putExtra("RezID", prenosi_id)
-            intent.putExtra("rezIme", prenosi_ime)
+            val putExtra = intent.putExtra("rezIme", prenosi_ime)
             mCtx.startActivity(intent)
         }
     }

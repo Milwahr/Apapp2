@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_rez__pregled.*
 
 class RezPregled : AppCompatActivity() {
 
+    @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rez__pregled)
@@ -19,13 +20,21 @@ class RezPregled : AppCompatActivity() {
         //val rezID: Int? = intent.getIntExtra("RezID")
         val rezIme = intent.getStringExtra("rezIme")
 
-        viewRezervacije()
+        setTitle(rezIme)
+        //viewRezervacije(rezIme)
+
+        val rezLista = MainActivity.dbHandler.getRez(this, rezIme)
+        val adapter = RezAdapter(this, rezLista)
+        val rv1 : RecyclerView = findViewById(R.id.rv1)
+        rv1.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false) as RecyclerView.LayoutManager
+        rv1.adapter = adapter
 
         fab_add.setOnClickListener(){
             val i = Intent(this, AddRez::class.java)
             intent.putExtra("rezIme", rezIme)
             startActivity(i)
         }
+
 
 
     }
@@ -44,17 +53,18 @@ class RezPregled : AppCompatActivity() {
         super.onResume()
     }
      */
-    @SuppressLint("WrongConstant")
+    /*@SuppressLint("WrongConstant")
     private fun viewRezervacije(){
         val rezLista = MainActivity.dbHandler.getRez(this)
         val adapter = RezAdapter(this, rezLista)
         val rv1 : RecyclerView = findViewById(R.id.rv1)
         rv1.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false) as RecyclerView.LayoutManager
         rv1.adapter = adapter
-    }
+    }*/
+
 
     override fun onResume(){
-        viewRezervacije()
+        //viewRezervacije()
         super.onResume()
     }
 }

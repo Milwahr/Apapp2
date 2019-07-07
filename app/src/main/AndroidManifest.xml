@@ -9,9 +9,9 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".Add_Rez">
+        <activity android:name=".AddRez">
         </activity>
-        <activity android:name=".Rez_Pregled">
+        <activity android:name=".RezPregled">
         </activity>
         <activity android:name=".AddObjekat">
         </activity>

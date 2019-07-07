@@ -64,8 +64,8 @@ class DBHandler(context: Context, name: String?, factory: SQLiteDatabase.CursorF
         return objektovi
     }
 
-    fun getRez(mCtx: Context) : ArrayList<Rezervacije>{
-        val qry = "SELECT * FROM $REZ_TABLE_NAME"
+    fun getRez(mCtx: Context, appIme: String) : ArrayList<Rezervacije>{
+        val qry = "SELECT * FROM $REZ_TABLE_NAME WHERE $COLUMN_APP_NAME = '$appIme'"
         val db = this.readableDatabase
         val cursor = db.rawQuery(qry, null)
 

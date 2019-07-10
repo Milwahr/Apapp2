@@ -2,10 +2,13 @@ package com.example.apapp2
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import android.widget.Toast
+import kotlin.coroutines.coroutineContext
 
 class DBHandler(context: Context, name: String?, factory: SQLiteDatabase.CursorFactory?, version: Int):
         SQLiteOpenHelper(context, DATABASE_NAME, factory, DATABASE_VERSION){
@@ -24,15 +27,20 @@ class DBHandler(context: Context, name: String?, factory: SQLiteDatabase.CursorF
         val COLUMN_REZ_NAME = "rezime"
         val COLUMN_DATE_CO = "dolazak"
         val COLUMN_DATE_LE = "odlazak"
-    }
 
-    override fun onCreate(p0: SQLiteDatabase?) {
         val CREATE_IZN_TABLE = ("CREATE TABLE $IZN_TABLE_NAME ($COLUMN_IZN_ID INTEGER PRIMARY KEY AUTOINCREMENT" +
                 ", $COLUMN_IZN_IME TEXT)")
         val CREATE_REZ_TABLE = ("CREATE TABLE $REZ_TABLE_NAME ($COLUMN_REZ_ID INTEGER PRIMARY KEY AUTOINCREMENT" +
                 ", $COLUMN_APP_NAME TEXT, $COLUMN_REZ_NAME TEXT, $COLUMN_DATE_CO TEXT, $COLUMN_DATE_LE TEXT)")
+    }
+
+    override fun onCreate(p0: SQLiteDatabase?) {
         p0?.execSQL(CREATE_IZN_TABLE)
-        p0?.execSQL(CREATE_REZ_TABLE)
+        try {
+            p0?.execSQL(CREATE_REZ_TABLE)
+        }catch (e: Exception){
+            Log.e(ContentValues.TAG, "Nije kreirana tablica rezervacije")
+        }
     }
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
@@ -65,10 +73,15 @@ class DBHandler(context: Context, name: String?, factory: SQLiteDatabase.CursorF
     }
 
     fun getRez(mCtx: Context, appIme: String) : ArrayList<Rezervacije>{
-        val qry = "SELECT * FROM $REZ_TABLE_NAME WHERE $COLUMN_APP_NAME = '$appIme'"
+        val qry = "SELECT * FROM $REZ_TABLE_NAME WHERE $COLUMN_APP_NAME = ?"
         val db = this.readableDatabase
-        val cursor = db.rawQuery(qry, null)
-
+        var cursor: Cursor? = null
+        try {
+            cursor = db.rawQuery(qry, arrayOf(appIme))
+        }catch(e: SQLiteException){
+            db.execSQL(CREATE_REZ_TABLE)
+            return ArrayList()
+        }
         val rezervacije = ArrayList<Rezervacije>()
 
         if(cursor.count == 0) Toast.makeText(mCtx, "Prazna lista", Toast.LENGTH_SHORT).show()
@@ -91,6 +104,33 @@ class DBHandler(context: Context, name: String?, factory: SQLiteDatabase.CursorF
         db.close()
         return rezervacije
         }
+
+    fun getRezSve(mCtx: Context) : ArrayList<Rezervacije>{
+        val qry = "SELECT * FROM $REZ_TABLE_NAME"
+        val db = this.readableDatabase
+        val cursor = db.rawQuery(qry, null)
+        val rezervacije = ArrayList<Rezervacije>()
+
+        if(cursor.count == 0) Toast.makeText(mCtx, "Prazna lista", Toast.LENGTH_SHORT).show()
+        else{
+            cursor.moveToFirst()
+
+            while(!cursor.isAfterLast()){
+                val reze = Rezervacije()
+                reze.rez_id = cursor.getInt(cursor.getColumnIndex(COLUMN_REZ_ID))
+                reze.rez_naziv = cursor.getString(cursor.getColumnIndex(COLUMN_REZ_NAME))
+                reze.app_naziv = cursor.getString(cursor.getColumnIndex(COLUMN_APP_NAME))
+                reze.dol_datum = cursor.getString(cursor.getColumnIndex(COLUMN_DATE_CO))
+                reze.odl_datum = cursor.getString(cursor.getColumnIndex(COLUMN_DATE_LE))
+                rezervacije.add(reze)
+                cursor.moveToNext()
+            }
+            Toast.makeText(mCtx, "${cursor.count.toString()} rezervacija pronadjeno", Toast.LENGTH_SHORT).show()
+        }
+        cursor.close()
+        db.close()
+        return rezervacije
+    }
 
     fun addObjekat(mCtx: Context, objekat: Iznobjekti){
         val values = ContentValues()
@@ -140,7 +180,7 @@ class DBHandler(context: Context, name: String?, factory: SQLiteDatabase.CursorF
     }
 
     fun deleteRez(rezName: String): Boolean {
-        val qry = "DELETE FROM $REZ_TABLE_NAME WHERE $COLUMN_APP_NAME = $rezName"
+        val qry = "DELETE FROM $REZ_TABLE_NAME WHERE $COLUMN_APP_NAME = '$rezName'"
         val db = this.writableDatabase
         var result: Boolean = false
 

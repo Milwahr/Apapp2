@@ -21,7 +21,6 @@ class RezPregled : AppCompatActivity() {
         val rezIme = intent.getStringExtra("rezIme")
 
         setTitle(rezIme)
-        //viewRezervacije(rezIme)
 
         val rezLista = MainActivity.dbHandler.getRez(this, rezIme)
         val adapter = RezAdapter(this, rezLista)
@@ -34,37 +33,25 @@ class RezPregled : AppCompatActivity() {
             intent.putExtra("rezIme", rezIme)
             startActivity(i)
         }
+        floatie.setOnClickListener(){
+            viewRezervacije()
+        }
+
 
 
 
     }
-    /*
     @SuppressLint("WrongConstant")
-    private fun viewObjektovi(){
-        val objektilista = dbHandler.getObjekti(this)
-        val adapter = IznajmAdapter(this, objektilista)
-        val rv : RecyclerView = findViewById(R.id.rv)
-        rv.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false) as RecyclerView.LayoutManager
-        rv.adapter = adapter
-    }
-
-    override fun onResume(){
-        viewObjektovi()
-        super.onResume()
-    }
-     */
-    /*@SuppressLint("WrongConstant")
-    private fun viewRezervacije(){
-        val rezLista = MainActivity.dbHandler.getRez(this)
+    private fun viewRezervacije() {
+        val rezLista = MainActivity.dbHandler.getRezSve(this)
         val adapter = RezAdapter(this, rezLista)
         val rv1 : RecyclerView = findViewById(R.id.rv1)
         rv1.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false) as RecyclerView.LayoutManager
         rv1.adapter = adapter
-    }*/
-
+    }
 
     override fun onResume(){
-        //viewRezervacije()
+        viewRezervacije()
         super.onResume()
     }
 }

@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Rez_Pregled">
+        tools:context=".RezPregled">
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -26,6 +26,15 @@
                                                                                android:src="@drawable/ic_group_add_black_24dp"
                                                                                app:backgroundTint="#FFFFFF"
                                                                                tools:targetApi="lollipop"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:src="?attr/actionModeSelectAllDrawable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true" android:id="@+id/floatie"
+                app:fabSize="normal"
+                android:layout_margin="@dimen/fab_margin"
+                app:backgroundTint="#FFEB3B"
+        android:layout_gravity="bottom|center"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
